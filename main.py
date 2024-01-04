@@ -145,7 +145,7 @@ while True:
     next = get_next_page(html)
     print(next)
 
-    input("Press to continue.")
+    input("Press enter to continue.")
 
     res = requests.get(
         url=next,
