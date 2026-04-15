@@ -109,7 +109,7 @@ while True:
     solutions = get_solution_ids(html)
 
     for solution in solutions:
-        sleep(0.1)
+        sleep(4)
         res2 = requests.get(
             url="https://www.acmicpc.net/source/"+str(solution),
             headers=header,
