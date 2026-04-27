@@ -41,6 +41,7 @@ def get_next_page(html: str) -> str:
     while html[idx] != '"':
         top += html[idx]
         idx += 1
+    print(f"lastest top: {top}")
     return f"https://www.acmicpc.net/status?user_id={user_name}&result_id=4" + "&top=" + top
 
 transform = [
@@ -96,8 +97,10 @@ res = requests.get(url = "https://www.acmicpc.net", headers=header)
 online_judge_token = res.cookies.get_dict()["OnlineJudge"]
 cookie = {"bojautologin": token, "OnlineJudge": online_judge_token}
 
+init_top = input("시작할 top을 입력하시오: ")
+
 res = requests.get(
-    url=f"https://www.acmicpc.net/status?user_id={user_name}&result_id=4",
+    url=f"https://www.acmicpc.net/status?user_id={user_name}&result_id=4" + "&top=" + init_top,
     headers=header,
     cookies=cookie
 )
@@ -134,10 +137,11 @@ while True:
             index = 0
         
         filename = str(problem_number) + "_" + str(index) + "." + extenstion
+        
+        if not problem_number or not extenstion:
+            print(f"\nUnknown problem. sumbmit number: {solution}")
         with open("src/" + filename, 'w') as f:
             f.write(code)
-            if not problem_number or not extenstion:
-                f.writelines(f"\nUnknown problem. sumbmit number: {solution}")
 
         
         print(f"Saved {filename}")
